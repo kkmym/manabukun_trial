@@ -1,0 +1,22 @@
+{
+    "name": "kentarokamiyama/20220621_manabu_trial",
+    "autoload": {
+        "psr-4": {
+            "Kentarokamiyama\\20220621ManabuTrial\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kkmym",
+            "email": "kentarokamiyama@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ManabuKun\\" : "src/ManabuKun/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
