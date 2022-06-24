@@ -3,6 +3,7 @@
 namespace ManabuKun\Domain\Entities;
 
 use ManabuKun\Domain\Entities\LikeToPost;
+use ManabuKun\Domain\ValueObjects\UserId;
 
 /**
  * ▼phpでファーストクラスコレクションを作る
@@ -26,5 +27,12 @@ class Likes
     public function add(LikeToPost $newLike): self
     {
         return new self(...array_merge($this->likes, [$newLike]));
+    }
+
+    public function remove(UserId $userId)
+    {
+        $this->likes = array_filter($this->likes, function (LikeToPost $like) use ($userId) {
+            return $like->getUserId() != $userId;
+        });
     }
 }

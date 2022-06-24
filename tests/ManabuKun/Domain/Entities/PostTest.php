@@ -14,14 +14,24 @@ class PostTest extends TestCase
         $rawPostId = 1234;
         $postId = new PostId($rawPostId);
 
+        $rawUserId = 5001;
+        $userId = new UserId($rawUserId);
+
         $rawContent = "とりあえず解決したけどよくわからない話";
         $postContent = new PostContent($rawContent);
 
-        $post = Post::createPost($postId, $postContent);
+        $post = Post::createPost($postId, $userId, $postContent);
         $this->assertEquals($postId, $post->getId());
         $this->assertEquals($postContent, $post->getContent());
 
-        $post->addLike(new LikeToPost(new UserId(1003), $postId));
+        $post->addLike($userId);
         $this->assertCount(1, $post->getLikes()->all());
+
+        $post->removeLike($userId);
+        $this->assertCount(0, $post->getLikes()->all());
+
+        $notExistsUserId = new UserId(99999);
+        $post->removeLike($notExistsUserId);
+        $this->assertCount(0, $post->getLikes()->all());
     }
 }

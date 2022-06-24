@@ -4,6 +4,7 @@ namespace ManabuKun\Domain\Entities;
 
 use ManabuKun\Domain\ValueObjects\PostContent;
 use ManabuKun\Domain\ValueObjects\PostId;
+use ManabuKun\Domain\ValueObjects\UserId;
 
 class Post extends AggregateRoot
 {
@@ -16,7 +17,7 @@ class Post extends AggregateRoot
         // empty
     }
 
-    public static function createPost(PostId $postId, PostContent $postContent): self
+    public static function createPost(PostId $postId, UserId $userId, PostContent $postContent): self
     {
         $newInstance = new self();
         $newInstance->postId = $postId;
@@ -26,13 +27,15 @@ class Post extends AggregateRoot
         return $newInstance;
     }
 
-    public function addLike(LikeToPost $newLike)
+    public function addLike(UserId $userId)
     {
+        $newLike = new LikeToPost($userId, new PostId(($this->postId)()));
         $this->likes = $this->likes->add($newLike);
     }
 
-    public function removeLike()
+    public function removeLike(UserId $userId)
     {
+        $this->likes->remove($userId);
     }
 
     public function getId(): PostId
