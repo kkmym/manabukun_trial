@@ -9,6 +9,7 @@ use ManabuKun\Domain\ValueObjects\UserId;
 class Post extends AggregateRoot
 {
     private PostId $postId;
+    private UserId $userId;
     private PostContent $postContent;
     private ?Likes $likes;
 
@@ -21,6 +22,7 @@ class Post extends AggregateRoot
     {
         $newInstance = new self();
         $newInstance->postId = $postId;
+        $newInstance->userId = $userId;
         $newInstance->postContent = $postContent;
         $newInstance->likes = new Likes();
 
@@ -51,5 +53,10 @@ class Post extends AggregateRoot
     public function getLikes(): Likes
     {
         return $this->likes;
+    }
+
+    public function getUserId(): UserId
+    {
+        return $this->userId;
     }
 }

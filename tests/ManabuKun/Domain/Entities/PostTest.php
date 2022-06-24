@@ -23,6 +23,7 @@ class PostTest extends TestCase
         $post = Post::createPost($postId, $userId, $postContent);
         $this->assertEquals($postId, $post->getId());
         $this->assertEquals($postContent, $post->getContent());
+        $this->assertEquals($userId, $post->getUserId());
 
         $post->addLike($userId);
         $this->assertCount(1, $post->getLikes()->all());
