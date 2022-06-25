@@ -1,5 +1,6 @@
 <?php
 
+use ManabuKun\Domain\Entities\PostThreadChild;
 use ManabuKun\Domain\Entities\PostThreadParent;
 use ManabuKun\Domain\ValueObjects\PostContent;
 use ManabuKun\Domain\ValueObjects\PostId;
@@ -33,5 +34,22 @@ class PostTest extends TestCase
         $notExistsUserId = new UserId(99999);
         $post->removeLike($notExistsUserId);
         $this->assertCount(0, $post->getLikes()->all());
+    }
+
+    public function testChildPost()
+    {
+        $rawPostId = 2001;
+        $rawUserId = 50001;
+        $rawContent = "スレッドの子投稿";
+        $rawParentPostId = 1001;
+
+        $childPost = PostThreadChild::createChildPost(
+            new PostId($rawPostId),
+            new UserId($rawUserId),
+            new PostContent($rawContent),
+            new PostId($rawParentPostId)
+        );
+
+        $this->assertEquals($rawParentPostId, ($childPost->getParentPostId())());
     }
 }
