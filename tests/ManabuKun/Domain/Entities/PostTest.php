@@ -1,7 +1,6 @@
 <?php
 
-use ManabuKun\Domain\Entities\LikeToPost;
-use ManabuKun\Domain\Entities\Post;
+use ManabuKun\Domain\Entities\PostThreadParent;
 use ManabuKun\Domain\ValueObjects\PostContent;
 use ManabuKun\Domain\ValueObjects\PostId;
 use ManabuKun\Domain\ValueObjects\UserId;
@@ -20,7 +19,7 @@ class PostTest extends TestCase
         $rawContent = "とりあえず解決したけどよくわからない話";
         $postContent = new PostContent($rawContent);
 
-        $post = Post::createPost($postId, $userId, $postContent);
+        $post = PostThreadParent::createPost($postId, $userId, $postContent);
         $this->assertEquals($postId, $post->getId());
         $this->assertEquals($postContent, $post->getContent());
         $this->assertEquals($userId, $post->getUserId());

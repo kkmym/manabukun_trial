@@ -6,7 +6,7 @@ use ManabuKun\Domain\ValueObjects\PostContent;
 use ManabuKun\Domain\ValueObjects\PostId;
 use ManabuKun\Domain\ValueObjects\UserId;
 
-class Post extends AggregateRoot
+abstract class Post extends AggregateRoot
 {
     private PostId $postId;
     private UserId $userId;
@@ -18,13 +18,13 @@ class Post extends AggregateRoot
         // empty
     }
 
-    public static function createPost(PostId $postId, UserId $userId, PostContent $postContent): self
+    public static function createPost(PostId $postId, UserId $userId, PostContent $postContent, ?Likes $likes = new Likes()): static
     {
-        $newInstance = new self();
+        $newInstance = new static();
         $newInstance->postId = $postId;
         $newInstance->userId = $userId;
         $newInstance->postContent = $postContent;
-        $newInstance->likes = new Likes();
+        $newInstance->likes = $likes;
 
         return $newInstance;
     }
@@ -59,4 +59,6 @@ class Post extends AggregateRoot
     {
         return $this->userId;
     }
+
+    abstract public function isThreadParent(): bool;
 }
