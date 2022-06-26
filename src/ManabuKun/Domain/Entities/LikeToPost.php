@@ -5,6 +5,10 @@ namespace ManabuKun\Domain\Entities;
 use ManabuKun\Domain\ValueObjects\PostId;
 use ManabuKun\Domain\ValueObjects\UserId;
 
+/**
+ * @todo これは Entity なのか？ValueObjects という解釈もあるのか？要検討。
+ */
+
 class LikeToPost
 {
     private UserId $userId;

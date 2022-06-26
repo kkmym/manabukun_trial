@@ -21,7 +21,7 @@ class PostTest extends TestCase
         $postContent = new PostContent($rawContent);
 
         $post = PostThreadParent::createPost($postId, $userId, $postContent);
-        $this->assertEquals($postId, $post->getId());
+        $this->assertEquals($postId, $post->getPostId());
         $this->assertEquals($postContent, $post->getContent());
         $this->assertEquals($userId, $post->getUserId());
 

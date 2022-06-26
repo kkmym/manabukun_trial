@@ -24,12 +24,15 @@ class Likes
         return $this->likes;
     }
 
-    public function add(LikeToPost $newLike): self
+    /**
+     * @todo selfを返すのがよいか、それともメンバ変数 $likes の更新のみでよいか。検討する。
+     */
+    public function add(LikeToPost $newLike): void
     {
-        return new self(...array_merge($this->likes, [$newLike]));
+        $this->likes = array_merge($this->likes, [$newLike]);
     }
 
-    public function remove(UserId $userId)
+    public function remove(UserId $userId): void
     {
         $this->likes = array_filter($this->likes, function (LikeToPost $like) use ($userId) {
             return $like->getUserId() != $userId;

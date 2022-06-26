@@ -15,7 +15,7 @@ class LikesTest extends TestCase
 
         $userId = new UserId(1006);
         $postId1 = new PostId(50006);
-        $likes = $likes->add(new LikeToPost($userId, $postId1));
+        $likes->add(new LikeToPost($userId, $postId1));
         $this->assertCount(1, $likes->all());
     }
 

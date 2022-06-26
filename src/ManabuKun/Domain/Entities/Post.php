@@ -32,7 +32,7 @@ abstract class Post extends AggregateRoot
     public function addLike(UserId $userId)
     {
         $newLike = new LikeToPost($userId, new PostId(($this->postId)()));
-        $this->likes = $this->likes->add($newLike);
+        $this->likes->add($newLike);
     }
 
     public function removeLike(UserId $userId)
@@ -40,7 +40,7 @@ abstract class Post extends AggregateRoot
         $this->likes->remove($userId);
     }
 
-    public function getId(): PostId
+    public function getPostId(): PostId
     {
         return $this->postId;
     }
